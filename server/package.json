@@ -4,7 +4,7 @@
   "description": "plan maker server",
   "main": "server.js",
   "scripts": {
-    "frontend-install": "npm install --prefix client",
+    "frontend-install": "cd ../client && npm install",
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "cd ../client && npm start",
