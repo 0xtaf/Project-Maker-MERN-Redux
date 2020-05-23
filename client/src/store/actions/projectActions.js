@@ -1,10 +1,24 @@
+import axios from 'axios';
+
+export const getProject = () => {
+  return (dispatch, getState) => {
+    
+    axios.get('/api/projects').then((res) =>
+      dispatch({
+        type: 'GET_PROJECTS',
+        payload: res.data,
+      })
+    );
+  };
+};
+
 export const createProject = (project) => {
   return (dispatch, getState) => {
-  
-    dispatch({
-          type: 'CREATE_PROJECT',
-          project,
-        });
-
+    axios.post('/api/projects', project).then((res) => {
+      dispatch({
+        type: 'CREATE_PROJECT',
+        project: res.data,
+      });
+    });
   };
 };
