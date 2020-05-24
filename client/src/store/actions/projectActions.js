@@ -12,6 +12,17 @@ export const getProject = () => {
   };
 };
 
+export const getProjectDetail = (id) => {
+  return (dispatch, getState) => {
+    axios.get(`/api/projects/${id}`).then((res) =>
+      dispatch({
+        type: 'GET_PROJECT_DETAIL',
+        payload: res.data,
+      })
+    );
+  };
+};
+
 export const createProject = (project) => {
   return (dispatch, getState) => {
     axios.post('/api/projects', project).then((res) => {

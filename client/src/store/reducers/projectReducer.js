@@ -1,6 +1,4 @@
-const initState = {
-  projectReducerdakiArray: [],
-};
+let initState = { projectReducerdakiArray: [], projectReducerdakiArrayOne: [] };
 
 const projectReducer = (state = initState, action) => {
   switch (action.type) {
@@ -8,6 +6,12 @@ const projectReducer = (state = initState, action) => {
       return {
         ...state,
         projectReducerdakiArray: action.payload,
+        projectReducerdakiArrayOne: [],
+      };
+    case 'GET_PROJECT_DETAIL':
+      return {
+        ...state,
+        projectReducerdakiArrayOne: action.payload,
       };
     case 'CREATE_PROJECT':
       console.log('created project', action.project);

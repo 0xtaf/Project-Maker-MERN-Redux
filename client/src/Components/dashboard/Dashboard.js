@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { getProject } from '../../store/actions/projectActions';
 
 class Dashboard extends Component {
+  
   componentDidMount() {
     this.props.getProject();
   }
@@ -33,9 +34,8 @@ class Dashboard extends Component {
 // state rootreducerımıza erişiyor o yüzden projectx adı ordan geliyor
 // projectReducerdakiArray ise state'teki projectx'in importunu aldığı yerdeki array
 const mapStateToProps = (state) => {
-  
   return {
     projectler: state.projectx.projectReducerdakiArray,
   };
 };
-export default connect(mapStateToProps, { getProject })(Dashboard);
+export default connect(mapStateToProps, {getProject})(Dashboard);

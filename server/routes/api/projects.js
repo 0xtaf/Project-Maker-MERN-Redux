@@ -8,6 +8,11 @@ router.get('/', async (req, res) => {
   res.json(result);
 });
 
+router.get('/:id', async (req, res) => {
+  const result = await Project.findById(req.params.id);
+  res.json(result);
+});
+
 router.post('/', async (req, res) => {
   const project = new Project({
     title: req.body.title,
