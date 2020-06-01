@@ -6,11 +6,12 @@ import ProjectDetails from './Components/projects/ProjectDetails';
 import SignIn from './Components/auth/SignIn';
 import SignUp from './Components/auth/SignUp';
 import CreateProject from './Components/projects/CreateProject';
+import ProjectContextProvider from './contexts/ProjectContext';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
+    <ProjectContextProvider>
+      <BrowserRouter>
         <Navbar />
         <Switch>
           <Route exact path="/" component={Dashboard} />
@@ -19,8 +20,8 @@ function App() {
           <Route path="/signup" component={SignUp} />
           <Route path="/create" component={CreateProject} />
         </Switch>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </ProjectContextProvider>
   );
 }
 

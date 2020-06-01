@@ -1,40 +1,45 @@
-import React, { Component } from 'react';
+import React, {useState, useContext} from 'react';
+import {ProjectContext} from '../../contexts/ProjectContext'
+import axios from 'axios';
+const CreateProject = (props) => {
+  const {dispatch} = useContext(ProjectContext)
 
-import { connect } from 'react-redux';
-import { createProject } from '../../store/actions/projectActions';
-
-class CreateProject extends Component {
-  state = {
+  const [state, setState] = useState({
     title: '',
     content: '',
-  };
+  });
 
-  handleChange = (e) => {
-    this.setState({
+  const handleChange = (e) => {
+    setState({
+      ...state,
       [e.target.id]: e.target.value,
     });
   };
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(this.state);
-    this.props.createProject(this.state)
+    // createProject(state)
+    dispatch({type: 'CREATE_PROJECT', state})
+    axios.get('api/projects').then((res) => {
+      dispatch({type:'GET_PROJECTS', payload: res.data})
+    });
+    props.history.push("/")
   };
 
-  render() {
+
     return (
       <div className="container">
-        <form className="white" onSubmit={this.handleSubmit}>
+        <form className="white" onSubmit={handleSubmit}>
           <h5 className="grey-text text-darken-3">Create New Project</h5>
           <div className="input-field">
             <label htmlFor="title">Title</label>
-            <input type="text" id="title" onChange={this.handleChange} />
+            <input type="text" id="title" onChange={handleChange} />
           </div>
           <div className="input-field">
             <label htmlFor="content">Project Content</label>
             <textarea
               id="content"
               className="materialize-textarea"
-              onChange={this.handleChange}
+              onChange={handleChange}
             ></textarea>
           </div>
 
@@ -44,14 +49,9 @@ class CreateProject extends Component {
         </form>
       </div>
     );
-  }
+  
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    createProject: (project) => dispatch(createProject(project))
-    //prop.createProject diyince bu gelcek
-  }
-}
 
-export default connect(null, mapDispatchToProps)(CreateProject);
+
+export default CreateProject;

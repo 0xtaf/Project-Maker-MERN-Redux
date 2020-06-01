@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ProjectSummary from './ProjectSummary';
 import { Link } from 'react-router-dom';
+import {ProjectContext} from '../../contexts/ProjectContext';
+const ProjectList = () => {
 
-const ProjectList = ({ projectPropu }) => {
+  const {projects} = useContext(ProjectContext)
+  
   return (
     <div className="project-list section">
-      {projectPropu.map((project) => {
+      {projects.map((project) => {
         return (
           <Link to={'/project/' + project._id} key={project._id}>
             <ProjectSummary projectasd={project}  />

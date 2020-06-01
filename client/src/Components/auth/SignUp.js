@@ -1,43 +1,44 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class SignUp extends Component {
-  state = {
+const SignUp = () => {
+  const [state, setState] = useState({
     email: '',
     password: '',
     firstName: '',
     lastName: '',
-  };
-
-  handleChange = (e) => {
-    this.setState({
+  }
+) 
+  const handleChange = (e) => {
+    setState({
+      ...state,
       [e.target.id]: e.target.value,
     });
   };
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    console.log(state);
   };
 
-  render() {
+
     return (
       <div className="container">
-        <form className="white" onSubmit={this.handleSubmit}>
+        <form className="white" onSubmit={handleSubmit}>
           <h5 className="grey-text text-darken-3">Sign Up</h5>
           <div className="input-field">
             <label htmlFor="email">Email</label>
-            <input type="email" id="email" onChange={this.handleChange} />
+            <input type="email" id="email" onChange={handleChange} />
           </div>
           <div className="input-field">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" onChange={this.handleChange} />
+            <input type="password" id="password" onChange={handleChange} />
           </div>
           <div className="input-field">
             <label htmlFor="lastName">last name</label>
-            <input type="text" id="lastName" onChange={this.handleChange} />
+            <input type="text" id="lastName" onChange={handleChange} />
           </div>
           <div className="input-field">
             <label htmlFor="firstName">firt name</label>
-            <input type="text" id="firstName" onChange={this.handleChange} />
+            <input type="text" id="firstName" onChange={handleChange} />
           </div>
 
           <div className="input-field">
@@ -46,7 +47,7 @@ class SignUp extends Component {
         </form>
       </div>
     );
-  }
+  
 }
 
 export default SignUp;

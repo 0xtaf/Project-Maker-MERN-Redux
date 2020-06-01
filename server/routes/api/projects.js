@@ -25,4 +25,13 @@ router.post('/', async (req, res) => {
   res.json(result);
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    await Project.findByIdAndRemove(req.params.id);
+    res.json({ success: true });
+  } catch (error) {
+    res.status(404).json({ success: false });
+  }
+});
+
 module.exports = router;

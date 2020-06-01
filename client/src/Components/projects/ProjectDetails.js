@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { getProjectDetail } from '../../store/actions/projectActions';
-
-class ProjectDetails extends Component {
-
-  componentDidMount() {
-    this.props.getProjectDetail(this.props.match.params.id); 
-  }
+import React, { useContext } from 'react';
+import { ProjectContext } from '../../contexts/ProjectContext';
+import axios from 'axios';
+const ProjectDetails = (props) => {
+  const { projects, dispatch } = useContext(ProjectContext);
   
-  render() {
-    const { project } = this.props;
+
+  const handleDelete = (id) => {
+    dispatch({type: 'DELETE_PROJECT', id: id})
+    axios.get('api/projects').then((res) => {
+      dispatch({type:'GET_PROJECTS', payload: res.data})
+    });
+    props.history.push("/")
+  }
+  const project = projects.find(
+    (project) => project._id === props.match.params.id
+  );
+  if (project) {
     return (
       <div className="container section project-details">
         <div className="card z-depth-0">
@@ -22,17 +28,15 @@ class ProjectDetails extends Component {
               Posted by {project.authorFirstName} {project.authorLastName}
             </div>
             <div>22nd may 2020</div>
+            <button className="btn pinlighten-1 z-depth-0" onClick={() => handleDelete(project._id)}>Delete</button>
           </div>
+          
         </div>
       </div>
     );
-   
+  } else {
+    return null;
   }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    project: state.projectx.projectReducerdakiArrayOne,
-  };
 };
-export default connect(mapStateToProps, { getProjectDetail })(ProjectDetails);
+
+export default ProjectDetails;
